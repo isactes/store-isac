@@ -10,7 +10,11 @@
 
 <body>
     <div class="products--grid">
-        <app-product [product]="product" *ngFor="let product of products"></app-product>
+        <app-product 
+        [product]="product"
+        *ngFor="let product of products"
+        (addedProduct)="onAddToshoCard($event)"
+         ></app-product>
     </div>
 </body>
 

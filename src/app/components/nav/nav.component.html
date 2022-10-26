@@ -9,22 +9,30 @@
 <body>
     <div class="show-mobile">
         <div>
-          <button>
-            <img src="/src/assets/svg/icon_menu.svg" alt="menu">
+          <button (click)="toggleMenu()">
+            <img [src]="imgNav.logocart2" alt="menu">
           </button>
           <a href="">
-            <img src="/src/assets/svg/logo_yard_sale.svg" alt="logo">
+            <img [src]="imgNav.logocart7" alt="logo">
           </a>
           <a href="">
-            <img src="/src/assets/svg/icon_shopping_cart.svg" alt="logo">
+            <img [src]="imgNav.logocart6" alt="logo">
           </a>
+        </div>
+        <div class="side-menu">
+            <button (click)="toggleMenu()" [class.active]="activeMenu">Close</button>
+            <ul>
+                <li><a href="">All</a></li>
+                <li><a href="">Clothes</a></li>
+                <li><a href="">Electronics</a></li>
+              </ul>
         </div>
       </div>
       <div class="hide-mobile">
         <div>
           <nav>
             <a class="logo" href="">
-              <img src="/src/assets/svg/logo_yard_sale.svg" alt="logo">
+              <img [src]="imgNav.logocart7" alt="logo">
             </a>
             <ul>
               <li><a href="">All</a></li>
@@ -36,7 +44,7 @@
             <div class="account">isactes@isactes</div>
             <div>
               <a href="">
-                <img src="/src/assets/svg/icon_shopping_cart.svg" alt="logo">
+                <img [src]="imgNav.logocart7" alt="logo">
               </a>
             </div>
           </div>
