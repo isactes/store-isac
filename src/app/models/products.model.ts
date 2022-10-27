@@ -1,9 +1,10 @@
 export interface Product {
-    id: number;
-    name: string;
+    id: string;
+    title: string;
     price: number;
     image: string;
-    describe: string;
+    description: string;
+    category: string;
 }
 
 export  interface ImageNav {

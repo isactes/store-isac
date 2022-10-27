@@ -8,9 +8,10 @@
 </head>
 <body>
     <app-img [img]="product.image"></app-img>
-    <h2>{{ product.name }}</h2>
-    <h3>{{ product.price }}</h3>
-    <p>{{ product.describe }}</p>
+    <h2>{{ product.id }}</h2>
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.description }}</p>
+    <p>{{ product.category }}</p>
     <button (click)="onAddToCard()">Add cart</button>
 </body>
 </html>
