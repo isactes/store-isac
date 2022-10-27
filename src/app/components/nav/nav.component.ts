@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ImageNav } from 'src/app/models/products.model';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,6 +10,7 @@ import { ImageNav } from 'src/app/models/products.model';
 export class NavComponent implements OnInit {
 
   activeMenu = false;
+  counter = 0;
 
   @Input() imgNav: ImageNav = {
     logom: 'assets/svg/bt_add_to_cart.svg',
@@ -20,9 +22,14 @@ export class NavComponent implements OnInit {
     logocart6: 'assets/svg/icon_shopping_cart.svg',
     logocart7: 'assets/svg/logo_yard_sale.svg',
   }
-  constructor() { }
+  constructor(
+    private storeService: StoreService
+  ) { }
 
   ngOnInit(): void {
+    this.storeService.mycarts$.subscribe(products => {
+      this.counter = products.length;
+    });
   }
 
   toggleMenu (){

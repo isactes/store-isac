@@ -6,7 +6,7 @@ import { Product } from 'src/app/models/products.model';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent  {
 
 @Input()  product: Product = {
   id: '',
@@ -21,8 +21,8 @@ export class ProductComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
   onAddToCard () {
     this.addedProduct.emit(this.product);
   }
