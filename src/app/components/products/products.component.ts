@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products.model';
+import { StoreService } from 'src/app/services/store.service';
 
 
 @Component({
@@ -8,6 +9,9 @@ import { Product } from 'src/app/models/products.model';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+
+   myonAddToshoCard: Product[] = [];
+   total = 0;
   products: Product[] = [
     {
       id: 1,
@@ -75,13 +79,18 @@ export class ProductsComponent implements OnInit {
 
   ]
 
-  constructor() { }
+  constructor(
+    private storeService: StoreService
+  ) {
+    this.myonAddToshoCard = this.storeService.getmyonAddToshoCard();
+   }
 
   ngOnInit(): void {
   }
 
   onAddToshoCard (product: Product) {
-   console.log(product) 
+   this.storeService.addProduct(product);
+  this.total = this.storeService.getTotal();
   }
 
 }
