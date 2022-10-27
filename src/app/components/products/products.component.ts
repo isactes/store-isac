@@ -11,9 +11,11 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
 
-   myonAddToshoCard: Product[] = [];
-   total = 0;
+  myonAddToshoCard: Product[] = [];
+  total = 0;
   products: Product[] = [];
+  today = new Date();
+  date =  new Date(2022, 1, 22);
 
   constructor(
     private storeService: StoreService,

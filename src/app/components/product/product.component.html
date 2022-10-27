@@ -9,9 +9,10 @@
 <body>
     <app-img [img]="product.image"></app-img>
     <h2>{{ product.id }}</h2>
-    <h3>{{ product.title }}</h3>
-    <p>{{ product.description }}</p>
-    <p>{{ product.category }}</p>
+    <h3>{{ product.title | uppercase }}</h3>
+    <h4>{{ product.price | currency: 'MXN' }}</h4>
+    <p appHighlight>{{ product.description | mypipe: 'by isac' }}</p>
+    <p appHighlight>{{ product.category }}</p>
     <button (click)="onAddToCard()">Add cart</button>
 </body>
 </html>
