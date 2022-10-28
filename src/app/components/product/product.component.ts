@@ -12,12 +12,16 @@ export class ProductComponent  {
   id: '',
   title: ' ',
   price: 0,
-  image: ' ',
+  images: [],
   description: ' ',
-  category: ' ',
+  category: {
+    id: '',
+    name: ','
+  },
   };
 
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showProductDetail = new EventEmitter<string>();
 
   constructor() { }
 
@@ -25,5 +29,8 @@ export class ProductComponent  {
   // }
   onAddToCard () {
     this.addedProduct.emit(this.product);
+  }
+  onShowDetail() {
+    this.showProductDetail.emit(this.product.id);
   }
 }

@@ -20,3 +20,20 @@
         grid-gap: 15px;
     }
 }
+
+.product-detail {
+    position: fixed;
+    top: 0;
+    left: 65%;
+    bottom: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    transition: all ease-in-out 0.6s;
+    transform: translateX(100%);
+}
+.product-detail.active{
+    transform: translateX(0);
+}

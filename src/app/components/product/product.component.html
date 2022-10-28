@@ -7,12 +7,13 @@
     <title>Products</title>
 </head>
 <body>
-    <app-img [img]="product.image"></app-img>
+    <app-img *ngIf="product.images.length > 0" [img]="product.images[0 ]"></app-img>
     <h2>{{ product.id }}</h2>
     <h3>{{ product.title | uppercase }}</h3>
     <h4>{{ product.price | currency: 'MXN' }}</h4>
-    <p appHighlight>{{ product.description | mypipe: 'by isac' }}</p>
-    <p appHighlight>{{ product.category }}</p>
+    <!-- <p appHighlight>{{ product.description | mypipe: 'by isac' }}</p>
+    <p appHighlight>{{ product.category }}</p> -->
+    <button (click)="onShowDetail()">Details</button>
     <button (click)="onAddToCard()">Add cart</button>
 </body>
 </html>

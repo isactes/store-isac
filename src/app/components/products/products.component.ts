@@ -14,6 +14,8 @@ export class ProductsComponent implements OnInit {
   myonAddToshoCard: Product[] = [];
   total = 0;
   products: Product[] = [];
+  showProductDetail = false;
+
   today = new Date();
   date =  new Date(2022, 1, 22);
 
@@ -34,6 +36,17 @@ export class ProductsComponent implements OnInit {
   onAddToshoCard (product: Product) {
    this.storeService.addProduct(product);
   this.total = this.storeService.getTotal();
+  }
+
+  toggleProductdetail(){
+    this.showProductDetail = !this.showProductDetail; 
+  }
+
+  onshowDetail(id: string) {
+    this.productsService.getProduct(id)
+    .subscribe(data => {
+      console.log('data id', data);
+    })
   }
 
 }

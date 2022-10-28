@@ -76,6 +76,12 @@
     display: flex;
     align-items: center;
 }
+.hide-mobile .info span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 .hide-mobile .info .account{
     margin-right: .5em;
