@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsService.getAllProducts()
-    .subscribe(data => {
+    .subscribe(data => {  
       this.products = data;
     })
   }
