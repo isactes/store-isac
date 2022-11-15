@@ -14,7 +14,7 @@
     <p>Today: {{ today | date: 'short' }}</p>
     <p>Pasado {{ date | timeAgo }}</p>
 
-    <button (click)="toggleProductdetail()">Click</button>
+    <button (click)="createNewProduct()">create</button>
 
     <div class="products--grid">
         <app-product 
