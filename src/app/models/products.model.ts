@@ -16,6 +16,8 @@ export interface CreateProductDTO extends Omit<Product, 'id' | 'category'> {
     categoryId: number;
 }
 
+export interface UpdateProductDTO extends Partial<CreateProductDTO> {}
+
 export  interface ImageNav {
     logom: string;
     logocart1: string;

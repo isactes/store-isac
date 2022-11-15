@@ -46,3 +46,7 @@ body {
 .product-detail.active{
     transform: translateX(0);
 }
+
+button {
+    background: green;
+}
