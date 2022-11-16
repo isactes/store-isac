@@ -26,6 +26,8 @@ export class ProductsComponent implements OnInit {
       name: ','
   },
   }
+  limit = 10;
+  offset = 0;
 
   today = new Date();
   date =  new Date(2022, 1, 22);
@@ -37,8 +39,16 @@ export class ProductsComponent implements OnInit {
     this.myonAddToshoCard = this.storeService.getmyonAddToshoCard();
    }
 
+  // get al the products
+  // ngOnInit(): void {
+  //   this.productsService.getAllProducts()
+  //   .subscribe(data => {  
+  //     this.products = data;
+  //   })
+  // }
+  // get products by pages
   ngOnInit(): void {
-    this.productsService.getAllProducts()
+    this.productsService.getProductByPage(10, 0)
     .subscribe(data => {  
       this.products = data;
     })
@@ -93,6 +103,14 @@ export class ProductsComponent implements OnInit {
       const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
       this.products.splice(productIndex, 1);
       this.showProductDetail = false;
+    })
+  }
+
+  loadMorw(){
+    this.productsService.getProductByPage(this.limit, this.offset)
+    .subscribe(data => {
+      this.products = this.products.concat(data);
+      this.offset += this.limit; 
     })
   }
 
