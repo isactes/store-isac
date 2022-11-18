@@ -50,3 +50,6 @@
 // stream de datos (puede emitir multiples valores )
 // Esposible escuchar const: eventos, responsive, fetchs
 // Se pueden cancelar
+
+
+// Add key verifed
