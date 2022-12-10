@@ -13,6 +13,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { MypipePipe } from './pipes/mypipe.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HighlightDirective } from './directives/highlight.directive';
     ReversePipe,
     TimeAgoPipe,
     MypipePipe,
-    HighlightDirective
+    HighlightDirective,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
