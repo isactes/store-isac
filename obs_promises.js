@@ -367,29 +367,6 @@
 // Se pueden cancelar
 
 
-// Add key verifed
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-// againg key 
-
-
-
 
 
 
