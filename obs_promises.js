@@ -366,7 +366,3 @@
 // Esposible escuchar const: eventos, responsive, fetchs
 // Se pueden cancelar
 
-
-
-
-
