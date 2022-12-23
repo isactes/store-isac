@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode  } from '@angular/common/http';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/products.model';
 import { retry, catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, zip } from 'rxjs';
 import { environment } from './../../environments/environment'
  
 
@@ -33,6 +33,13 @@ export class ProductsService {
         }
       }))
     );
+  }
+
+  fecthReadAndUpdate(id: string, dto: UpdateProductDTO) {
+   return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    )
   }
 
   getProduct(id: string) {
