@@ -52,7 +52,7 @@ export class ProductsComponent implements OnInit {
   // }
   // get products by pages
   ngOnInit(): void {
-    this.productsService.getProductByPage(20, 0)
+    this.productsService.getAllProducts(20, 0)
     .subscribe(data => {  
       this.products = data;
       this.offset += this.limit;

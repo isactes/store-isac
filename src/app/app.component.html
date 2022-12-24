@@ -14,7 +14,8 @@
   <p>{{ showImg }}</p>
   <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParet"></app-img> -->
   <app-nav></app-nav>
-
+  <button (click)="createUser()" >Create user</button>
+  <button (click)="getProfile()">get profile</button>
   <app-products></app-products>
 
 
