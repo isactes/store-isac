@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/products.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { switchMap } from 'rxjs/operators';
+import { zip } from 'rxjs';
+
 
 
 @Component({
@@ -26,8 +29,9 @@ export class ProductsComponent implements OnInit {
       name: ','
   },
   }
-  limit = 10;
+  limit = 20;
   offset = 0;
+  statusDetail: 'loading'| 'success' | 'error' | 'init' = 'init';
 
   today = new Date();
   date =  new Date(2022, 1, 22);
@@ -48,9 +52,10 @@ export class ProductsComponent implements OnInit {
   // }
   // get products by pages
   ngOnInit(): void {
-    this.productsService.getProductByPage(10, 0)
+    this.productsService.getAllProducts(20, 0)
     .subscribe(data => {  
       this.products = data;
+      this.offset += this.limit;
     })
   }
 
@@ -64,10 +69,32 @@ export class ProductsComponent implements OnInit {
   }
 
   onshowDetail(id: string) {
+    this.statusDetail = 'loading';
+    this.toggleProductdetail();
     this.productsService.getProduct(id)
     .subscribe(data => {
       this.toggleProductdetail();
       this.productChosen = data;
+      this.statusDetail = 'success';
+    }, response => {
+      console.log(response);
+      this.statusDetail = 'error';
+      
+    })
+  }
+
+  readAndUpdate(id : string){
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.productsService.update(product.id, { title: 'change'})),
+    )
+    .subscribe(data => {
+      console.log('cbh', data);
+    });
+    this.productsService.fecthReadAndUpdate(id, {title: 'change'})
+    .subscribe(response => {
+      const read = response[0];
+      const update = response [1];
     })
   }
 

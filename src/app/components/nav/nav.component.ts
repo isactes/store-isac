@@ -1,7 +1,8 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ImageNav } from 'src/app/models/products.model';
 import { StoreService } from 'src/app/services/store.service';
-
+import { User } from 'src/app/models/user.model';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -11,6 +12,8 @@ export class NavComponent implements OnInit {
 
   activeMenu = false;
   counter = 0;
+  token = '';
+  profile: User | null = null;
 
   @Input() imgNav: ImageNav = {
     logom: 'assets/svg/bt_add_to_cart.svg',
@@ -23,7 +26,8 @@ export class NavComponent implements OnInit {
     logocart7: 'assets/svg/logo_yard_sale.svg',
   }
   constructor(
-    private storeService: StoreService
+    private storeService: StoreService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +38,22 @@ export class NavComponent implements OnInit {
 
   toggleMenu (){
     this.activeMenu = !this.activeMenu
+  }
+
+  login(){
+    this.authService.login('isac@mail.com', 'isates')
+    .subscribe(rta => {
+      this.token = rta.acces_token;
+      console.log(this.token);
+      this.getProfile();
+    })
+  }
+
+  getProfile(){
+    this.authService.profile(this.token)
+    .subscribe(user => {
+      this.profile = user;
+    });
   }
 
 }
