@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/products.model';
-import { StoreService } from 'src/app/services/store.service';
-import { ProductsService } from 'src/app/services/products.service';
-import { switchMap } from 'rxjs/operators';
 import { zip } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
+import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/products.model';
 
+import { StoreService } from '../../services/store.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -14,96 +14,83 @@ import { zip } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  myonAddToshoCard: Product[] = [];
+  myShoppingCart: Product[] = [];
   total = 0;
   products: Product[] = [];
   showProductDetail = false;
   productChosen: Product = {
     id: '',
-    title: ' ',
     price: 0,
     images: [],
-    description: ' ',
+    title: '',
     category: {
       id: '',
-      name: ','
-  },
-  }
-  limit = 20;
+      name: '',
+    },
+    description: ''
+  };
+  limit = 10;
   offset = 0;
-  statusDetail: 'loading'| 'success' | 'error' | 'init' = 'init';
-
-  today = new Date();
-  date =  new Date(2022, 1, 22);
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private storeService: StoreService,
     private productsService: ProductsService
   ) {
-    this.myonAddToshoCard = this.storeService.getmyonAddToshoCard();
-   }
+    this.myShoppingCart = this.storeService.getShoppingCart();
+  }
 
-  // get al the products
-  // ngOnInit(): void {
-  //   this.productsService.getAllProducts()
-  //   .subscribe(data => {  
-  //     this.products = data;
-  //   })
-  // }
-  // get products by pages
   ngOnInit(): void {
-    this.productsService.getAllProducts(20, 0)
-    .subscribe(data => {  
+    this.productsService.getAllProducts(10, 0)
+    .subscribe(data => {
       this.products = data;
       this.offset += this.limit;
-    })
+    });
   }
 
-  onAddToshoCard (product: Product) {
-   this.storeService.addProduct(product);
-  this.total = this.storeService.getTotal();
+  onAddToShoppingCart(product: Product) {
+    this.storeService.addProduct(product);
+    this.total = this.storeService.getTotal();
   }
 
-  toggleProductdetail(){
-    this.showProductDetail = !this.showProductDetail; 
+  toggleProductDetail() {
+    this.showProductDetail = !this.showProductDetail;
   }
 
-  onshowDetail(id: string) {
+  onShowDetail(id: string) {
     this.statusDetail = 'loading';
-    this.toggleProductdetail();
+    this.toggleProductDetail();
     this.productsService.getProduct(id)
     .subscribe(data => {
-      this.toggleProductdetail();
       this.productChosen = data;
       this.statusDetail = 'success';
-    }, response => {
-      console.log(response);
+    }, errorMsg => {
+      window.alert(errorMsg);
       this.statusDetail = 'error';
-      
     })
   }
 
-  readAndUpdate(id : string){
+  readAndUpdate(id: string) {
     this.productsService.getProduct(id)
     .pipe(
-      switchMap((product) => this.productsService.update(product.id, { title: 'change'})),
+      switchMap((product) => this.productsService.update(product.id, {title: 'change'})),
     )
     .subscribe(data => {
-      console.log('cbh', data);
+      console.log(data);
     });
-    this.productsService.fecthReadAndUpdate(id, {title: 'change'})
+    this.productsService.fetchReadAndUpdate(id, {title: 'change'})
     .subscribe(response => {
       const read = response[0];
-      const update = response [1];
+      const update = response[1];
     })
   }
 
   createNewProduct() {
     const product: CreateProductDTO = {
-      title: 'Nuevo productos',
-      price: 1212,
-      images: ['https://placeimg.com/640/480/any'],
-      description: 'Theres a new products create',
+      title: 'Nuevo prodcuto',
+      description: 'bla bla bla',
+      images: [`https://placeimg.com/640/480/any?random=${Math.random()}`],
+      price: 1000,
       categoryId: 2,
     }
     this.productsService.create(product)
@@ -111,34 +98,36 @@ export class ProductsComponent implements OnInit {
       this.products.unshift(data);
     });
   }
-  updateProduct(){
+
+  updateProduct() {
     const changes: UpdateProductDTO = {
-      title: 'nuevo title',
+      title: 'change title',
     }
     const id = this.productChosen.id;
     this.productsService.update(id, changes)
     .subscribe(data => {
       const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
       this.products[productIndex] = data;
-    })
+      this.productChosen = data;
+    });
   }
 
-  deleteProduct(){
+  deleteProduct() {
     const id = this.productChosen.id;
     this.productsService.delete(id)
     .subscribe(() => {
       const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
       this.products.splice(productIndex, 1);
       this.showProductDetail = false;
-    })
+    });
   }
 
-  loadMorw(){
-    this.productsService.getProductByPage(this.limit, this.offset)
+  loadMore() {
+    this.productsService.getAllProducts(this.limit, this.offset)
     .subscribe(data => {
       this.products = this.products.concat(data);
-      this.offset += this.limit; 
-    })
+      this.offset += this.limit;
+    });
   }
 
 }
