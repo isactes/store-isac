@@ -25,7 +25,7 @@ const routes: Routes = [
     component: CategoryComponent
   },
   {
-    path: 'notFoundPage',
+    path: '**',
     component: NotFoundComponent
   },
   {
