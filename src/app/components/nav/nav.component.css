@@ -69,7 +69,14 @@
     margin: 0 .3em;
     color: inherit;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.hide-mobile .active {
+  border: 1px solid #45C7AD;
+  color: #196858;
+  border-radius: 5px;
 }
 
 .hide-mobile .info{
@@ -85,8 +92,8 @@
 
 .hide-mobile .info .account{
     margin-right: .5em;
-}  
-  
+}
+
   /* Medium only */
   @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     .show-mobile {
@@ -96,7 +103,7 @@
       display: block;
     }
   }
-  
+
   /* Large and up */
   @media screen and (min-width: 64em) {
     .show-mobile {
