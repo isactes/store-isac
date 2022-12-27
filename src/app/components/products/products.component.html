@@ -18,7 +18,8 @@
     (addedProduct)="onAddToShoppingCart($event)"
     (showProduct)="onShowDetail($event)"
   ></app-product>
-  <button (click)="loadMore()">Load mora</button>
+  <!-- PASA AL COMPONENTE HOME  -->
+  <button (click)="onLoadMore()">Load mora</button>
 </div>
 <div class="product-detail" [class.active]="showProductDetail">
   {{ statusDetail }}

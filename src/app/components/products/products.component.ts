@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { zip } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -12,11 +12,14 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
+  @Output() loadMore =  new EventEmitter();
+
+
   showProductDetail = false;
   productChosen: Product = {
     id: '',
@@ -29,8 +32,6 @@ export class ProductsComponent implements OnInit {
     },
     description: ''
   };
-  limit = 10;
-  offset = 0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
@@ -38,14 +39,6 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    this.productsService.getAllProducts(10, 0)
-    .subscribe(data => {
-      this.products = data;
-      this.offset += this.limit;
-    });
   }
 
   onAddToShoppingCart(product: Product) {
@@ -122,12 +115,16 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this.productsService.getAllProducts(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = this.products.concat(data);
-      this.offset += this.limit;
-    });
+  onLoadMore() {
+    this.loadMore.emit();
   }
+// PAASARLO AL COMPONENTE HOME
+  // loadMore() {
+  //   this.productsService.getAllProducts(this.limit, this.offset)
+  //   .subscribe(data => {
+  //     this.products = this.products.concat(data);
+  //     this.offset += this.limit;
+  //   });
+  // }
 
 }
