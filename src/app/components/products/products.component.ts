@@ -17,6 +17,13 @@ export class ProductsComponent {
   myShoppingCart: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  // @Input() productId: string | null = null;
+  @Input()
+    set productId(id: string| null){
+      if (id) {
+        this.onShowDetail(id);
+      }
+    }
   @Output() loadMore =  new EventEmitter();
 
 
@@ -52,12 +59,15 @@ export class ProductsComponent {
 
   onShowDetail(id: string) {
     this.statusDetail = 'loading';
-    this.toggleProductDetail();
+    if (!this.showProductDetail) {
+      this.showProductDetail = true;
+    }
     this.productsService.getProduct(id)
     .subscribe(data => {
       this.productChosen = data;
       this.statusDetail = 'success';
-    }, errorMsg => {
+    },
+     errorMsg => {
       window.alert(errorMsg);
       this.statusDetail = 'error';
     })
@@ -118,13 +128,5 @@ export class ProductsComponent {
   onLoadMore() {
     this.loadMore.emit();
   }
-// PAASARLO AL COMPONENTE HOME
-  // loadMore() {
-  //   this.productsService.getAllProducts(this.limit, this.offset)
-  //   .subscribe(data => {
-  //     this.products = this.products.concat(data);
-  //     this.offset += this.limit;
-  //   });
-  // }
 
 }

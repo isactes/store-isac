@@ -13,7 +13,8 @@
     <h2>{{ product.price | currency:'MXN' }}</h2>
     <p>{{ product.title }}</p>
     <p>{{ product.taxes | currency:'IVA'}}</p>
-    <button (click)="onShowDetail()">Ver detalle</button>
+    <!-- <button (click)="onShowDetail()">Ver detalle</button> -->
+    <a routerLink="." [queryParams]="{product: product.id}">Details</a>
     <button (click)="onAddToCart()">Add cart</button>
 </body>
 </html>
