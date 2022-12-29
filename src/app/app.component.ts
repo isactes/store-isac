@@ -34,7 +34,7 @@ export class AppComponent {
     this.usersService.create({
       name: 'isac',
       email: 'isac@mail.com',
-      password: '1212',
+      password: 'isactes',
       rol: 'custumer'
     })
     .subscribe(rta => {
