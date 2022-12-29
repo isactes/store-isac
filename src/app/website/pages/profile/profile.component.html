@@ -7,6 +7,11 @@
   <title>Profile</title>
 </head>
 <body>
-    <h2>hello profile</h2>
+    <div *ngIf="user">
+      <h1>My profile</h1>
+      <p>Nombre: {{ user.name }}</p>
+      <p>Email: {{ user.email }}</p>
+      <p>Rol: {{ user.rol }}</p>
+    </div>
 </body>
 </html>
