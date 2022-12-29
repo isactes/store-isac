@@ -14,7 +14,7 @@ import { TokenService } from './../services/token.service';
 export class AuthService {
 
   private apiUrl = `${environment.API_URL}/api/auth`;
-  private user =  new BehaviorSubject<User | null>(null);
+  private user = new BehaviorSubject<User | null>(null);
   user$ = this.user.asObservable();
 
   constructor(
@@ -25,7 +25,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http.post<Auth>(`${this.apiUrl}/login`, {email, password})
     .pipe(
-      tap(response => this.tokenService.saveToken(response.acces_token))
+      tap(response => this.tokenService.saveToken(response.acces_token)),
     );
   }
 
@@ -33,7 +33,7 @@ export class AuthService {
     return this.http.get<User>(`${this.apiUrl}/profile`)
     .pipe(
       tap(user => this.user.next(user))
-    )
+    );
   }
 
   loginAndGet(email: string, password: string) {

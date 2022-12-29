@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angu
 import { retry, catchError, map } from 'rxjs/operators';
 import { throwError, zip } from 'rxjs';
 
-import { Product, CreateProductDTO, UpdateProductDTO } from '../models/products.model';
+import { Product, CreateProductDTO, UpdateProductDTO } from './../models/products.model';
 import { checkTime } from './../interceptors/time.interceptor';
 import { environment } from './../../environments/environment';
 
@@ -14,26 +14,24 @@ export class ProductsService {
 
   private apiUrl = `${environment.API_URL}/api`;
 
-
   constructor(
     private http: HttpClient
   ) { }
 
-
   getByCategory(categoryId: string, limit?: number, offset?: number){
     let params = new HttpParams();
-    if (limit && offset) {
+    if (limit && offset != null) {
       params = params.set('limit', limit);
-      params = params.set('offset', limit);
+      params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`, { params, context: checkTime() })
+    return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`, { params })
   }
 
-  getAllProducts(limit?: number, offset?: number) {
+  getAll(limit?: number, offset?: number) {
     let params = new HttpParams();
-    if (limit && offset) {
+    if (limit && offset != null) {
       params = params.set('limit', limit);
-      params = params.set('offset', limit);
+      params = params.set('offset', offset);
     }
     return this.http.get<Product[]>(`${this.apiUrl}/products`, { params, context: checkTime() })
     .pipe(
@@ -49,33 +47,9 @@ export class ProductsService {
 
   fetchReadAndUpdate(id: string, dto: UpdateProductDTO) {
     return zip(
-      this.getProduct(id),
+      this.getOne(id),
       this.update(id, dto)
     );
-  }
-
-  getProduct(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
-    .pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === HttpStatusCode.Conflict) {
-          return throwError('Algo esta fallando en el server');
-        }
-        if (error.status === HttpStatusCode.NotFound) {
-          return throwError('El producto no existe');
-        }
-        if (error.status === HttpStatusCode.Unauthorized) {
-          return throwError('No estas permitido');
-        }
-        return throwError('Ups algo salio mal');
-      })
-    )
-  }
-
-  getProductsByPage(limit: number, offset: number) {
-    return this.http.get<Product[]>(`${this.apiUrl}/products`, {
-      params: { limit, offset }
-    })
   }
 
   getOne(id: string) {

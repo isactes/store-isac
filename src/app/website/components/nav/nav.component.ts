@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 import { StoreService } from '../../../services/store.service'
 import { AuthService } from '../../../services/auth.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { User } from '../../../models/user.model';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { Category } from 'src/app/models/category.model';
+import { Category } from '../../../models/category.model';
 
 @Component({
   selector: 'app-nav',
@@ -24,7 +23,7 @@ export class NavComponent implements OnInit {
     private storeService: StoreService,
     private authService: AuthService,
     private categoriesService: CategoriesService,
-    private roter: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +32,8 @@ export class NavComponent implements OnInit {
     });
     this.getAllCategories();
     this.authService.user$
-    .subscribe( userdata => {
-      this.profile = userdata;
+    .subscribe(data => {
+      this.profile = data;
     })
   }
 
@@ -43,23 +42,23 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    this.authService.loginAndGet('isac@mail.com', 'isactes')
+    this.authService.loginAndGet('maria@mail.com', '12345')
     .subscribe(() => {
-      this.roter.navigate(['/profile'])
-  });
+      this.router.navigate(['/profile']);
+    });
   }
 
   getAllCategories() {
     this.categoriesService.getAll()
-    .subscribe((data) => {
-      this.categories = data
-    })
+    .subscribe(data => {
+      this.categories = data;
+    });
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
     this.profile = null;
-    this.roter.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 
 }

@@ -11,8 +11,8 @@ export class CustomPreloadService implements PreloadingStrategy {
 
   preload(route: Route, load: () => Observable<any>): Observable<any> {
     if (route.data && route.data['preload']) {
-        return load();
+      return load();
     }
-    return of(null)
+    return of(null);
   }
 }
