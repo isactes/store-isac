@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Product } from 'src/app/models/products.model';
+import { Product } from './../../../models/products.model';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +15,7 @@ export class ProductComponent {
     images: [],
     title: '',
     category: {
-    id: -1,
+      id: -1,
       name: '',
     },
     description: ''

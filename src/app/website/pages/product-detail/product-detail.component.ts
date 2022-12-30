@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-import { Product } from 'src/app/models/products.model';
-import { ProductsService } from 'src/app/services/products.service';
+import { Product } from '../../../models/products.model'
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,26 +20,26 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private location: Location
-  ){}
+  ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.
-    pipe(
-      switchMap(params => {
-        this.productId = params.get('id');
-        if (this.productId) {
-          return this.productsService.getOne(this.productId)
-        }
-        return [null];
-      })
-    )
-    .subscribe((data) => {
-      this.product = data;
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          this.productId = params.get('id');
+          if (this.productId) {
+            return this.productsService.getOne(this.productId);
+          }
+          return [null];
+        })
+      )
+      .subscribe((data) => {
+        this.product = data;
+      });
   }
 
   goToBack() {
-    this.location.back()
+    this.location.back();
   }
 
 }

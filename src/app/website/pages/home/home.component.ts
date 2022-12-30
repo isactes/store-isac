@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { ProductsService } from '../../../services/products.service';
-import { Product } from 'src/app/models/products.model';
+
+import { Product } from '../../../models/products.model';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,7 @@ import { Product } from 'src/app/models/products.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   products: Product[] = [];
   limit = 10;
   offset = 0;
@@ -17,23 +20,21 @@ export class HomeComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.productsService.getAll(10, 0).subscribe
-    ((data) => {
+    this.productsService.getAll(10, 0).subscribe((data) => {
       this.products = data;
       this.offset += this.limit;
     });
     this.route.queryParamMap.subscribe(params => {
-      this.productId = params.get('product')
-      console.log('idssasa', this.productId)
+      this.productId = params.get('product');
+      console.log(this.productId);
     })
   }
 
   onLoadMore() {
-    this.productsService.getAll(this.limit, this.offset)
-    .subscribe(data => {
+    this.productsService.getAll(this.limit, this.offset).subscribe((data) => {
       this.products = this.products.concat(data);
       this.offset += this.limit;
     });

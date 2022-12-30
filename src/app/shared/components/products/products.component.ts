@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { zip } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
-import { Product, CreateProductDTO, UpdateProductDTO } from 'src/app/models/products.model';
+import {
+  Product,
+  CreateProductDTO,
+  UpdateProductDTO,
+} from '../../../models/products.model';
 
 import { StoreService } from '../../../services/store.service';
 import { ProductsService } from '../../../services/products.service';
@@ -10,7 +12,7 @@ import { ProductsService } from '../../../services/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent {
 
@@ -53,13 +55,14 @@ export class ProductsComponent {
     }
     this.productsService.getOne(id).subscribe(
       (data) => {
-      this.productChosen = data;
-      this.statusDetail = 'success';
-    },
-     (errorMsg) => {
-      window.alert(errorMsg);
-      this.statusDetail = 'error';
-    })
+        this.productChosen = data;
+        this.statusDetail = 'success';
+      },
+      (errorMsg) => {
+        window.alert(errorMsg);
+        this.statusDetail = 'error';
+      }
+    );
   }
 
   createNewProduct() {
@@ -69,9 +72,8 @@ export class ProductsComponent {
       images: [`https://placeimg.com/640/480/any?random=${Math.random()}`],
       price: 1000,
       categoryId: 2,
-    }
-    this.productsService.create(product)
-    .subscribe((data) => {
+    };
+    this.productsService.create(product).subscribe((data) => {
       this.products.unshift(data);
     });
   }
@@ -108,5 +110,4 @@ export class ProductsComponent {
   onLoadMore() {
     this.loadMore.emit();
   }
-
 }

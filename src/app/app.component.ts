@@ -1,41 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from './services/users.service';
 import { FilesService } from './services/files.service';
+import { AuthService } from './services/auth.service';
+import { TokenService } from './services/token.service';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet> </router-outlet>',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  imgParent = '';
-  showImg = true;
-  token = '';
+export class AppComponent implements OnInit {
   imgRta = '';
 
   constructor(
     private usersService: UsersService,
-    private filesService: FilesService
-  ) {
+    private filesService: FilesService,
+    private authService: AuthService,
+    private tokenService: TokenService,
+  ) {}
 
-  }
-
-
-  onLoaded(img: string) {
-    console.log('log padre', img);
-  }
-
-  toggleImg() {
-    this.showImg = !this.showImg;
+  ngOnInit() {
+    const token = this.tokenService.getToken();
+    if (token) {
+      this.authService.getProfile()
+      .subscribe()
+    }
   }
 
   createUser() {
     this.usersService.create({
-      name: 'dani',
-      email: 'dani@mail.com',
-      password: 'danis',
-      rol: 'custumer'
+      name: 'Sebas',
+      email: 'sebas@mail.com',
+      password: '1212',
+      role: 'customer'
     })
     .subscribe(rta => {
       console.log(rta);

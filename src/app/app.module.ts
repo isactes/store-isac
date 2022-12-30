@@ -11,8 +11,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
