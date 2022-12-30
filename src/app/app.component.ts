@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from './services/users.service';
-import { FilesService } from './services/files.service';
+import { FilesService } from './services/file.service';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
 

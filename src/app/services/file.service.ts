@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { tap, map } from 'rxjs/operators';
 
-import { environment } from './../../environments/environment';
-import { FileRta } from './../models/files.model';
+import { environment } from '../../environments/environment';
+import { FileRta } from '../models/files.model';
 
 @Injectable({
   providedIn: 'root'
